@@ -29,7 +29,8 @@ def parse_rssi(socket):
     if event == LE_META_EVENT:
         pkt = pkt[4:]
         mac = packed_bdaddr_to_string(pkt[3:9])
-        MAC_ADDRESS = "d6:24:b0:e9:15:ea" #różowy
+        #here you should enter MAC address of the device, from which you want to read RSSI
+        MAC_ADDRESS = "d6:24:b0:e9:15:ea"
 
         if(mac == MAC_ADDRESS):
             Adstring = "%i" % struct.unpack("b", pkt[len(pkt)-1:len(pkt)])
@@ -41,7 +42,7 @@ try:
     sock = bluez.hci_open_dev(0)
 
 except:
-    print ("Bład podczas uzyskiwania dostepu do urzadzenia bluetooth")
+    print ("Error while accessing a bluetooth device")
     sys.exit(1)
 
 hci_enable_le_scan(sock)
@@ -53,4 +54,3 @@ while True:
     for beacon in returnedList:
         print (i, beacon)
         i += 1
-#test
